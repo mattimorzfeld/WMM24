@@ -18,31 +18,12 @@ for kk = 1:m
         end
     end
     subplot(m,m,kk+(kk-1)*m)
-    [x, bins]=myhist(samples(kk,:),20);
-    stairs(x,bins,'k','LineWidth',2);
+    histogram(samples(kk,:),20,'Normalization','pdf','DisplayStyle','stairs','EdgeColor','k','LineWidth',2)
     set(gca,'FontSize',16)
     box off
-    map = crameri('davos')
-    % map = [1,1,1;crameri('-davos')];
-    % map = [1,1,1;magma(100)]; 
-    % map = [1,1,1;colormap(brewermap([],'YlGnBu'))];
-    colormap(map);
+    colormap(crameri('davos'));
 end
 set(gcf,'Color','w')
-end
-
-function [x, bins]=myhist(x,nbins)
-xl = min(x);
-xr =max(x);
-dx = (xr-xl)/nbins;
-bins = zeros(nbins+1,1);
-w = ones(length(x),1)/length(x);
-for kk=1:length(x)
-    index = floor((x(kk)-xl)/dx)+1;
-    bins(index) = bins(index)+w(kk);
-end
-bins = bins/dx;
-x = xl+dx/2:dx:xr+dx/2;
 end
 
 % Displays a 2d histogram for your data, it will set the bins appropriately
